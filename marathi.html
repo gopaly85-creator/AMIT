@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>तुझ्यासाठी खास 💖</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1d2671, #c33764);
+    color:white;
+    overflow-x:hidden;
+    text-align:center;
+}
+
+/* Proposal Section */
+#proposal{
+    padding:40px 20px;
+    margin-top:100px;
+}
+
+button{
+    padding:12px 25px;
+    font-size:16px;
+    border:none;
+    border-radius:30px;
+    margin:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.yes{
+    background:#ff4e50;
+    color:white;
+}
+
+.no{
+    background:#444;
+    color:white;
+}
+
+/* Love Page */
+#lovePage{
+    display:none;
+    padding:20px;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    flex-wrap:wrap;
+}
+
+/* Photo */
+.photo{
+    width:100%;
+    max-width:350px;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.5);
+}
+
+/* Content */
+.content{
+    max-width:500px;
+    text-align:left;
+}
+
+.content h1{
+    font-size:26px;
+    margin-bottom:20px;
+}
+
+.text{
+    font-size:18px;
+    margin:15px 0;
+    line-height:1.6;
+    opacity:0;
+    transform:translateY(20px);
+    transition:1s;
+}
+
+.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* Music Button */
+.music-btn{
+    position:fixed;
+    top:15px;
+    right:15px;
+    background:#ff4e50;
+    border:none;
+    border-radius:50%;
+    width:50px;
+    height:50px;
+    font-size:20px;
+    color:white;
+    cursor:pointer;
+}
+
+/* Floating Hearts */
+.heart{
+    position:fixed;
+    bottom:0;
+    color:#ff4e50;
+    animation:floatUp 4s linear forwards;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-100vh); opacity:0;}
+}
+
+/* Mobile Optimization */
+@media(max-width:768px){
+    .container{
+        flex-direction:column;
+        text-align:center;
+    }
+    .content{
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Music -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6c6b19b6c1.mp3?filename=romantic-background-11282.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<!-- First Page -->
+<div id="proposal">
+    <h2>💖 तुझ्यासाठी एक खास सरप्राईज आहे 💖</h2>
+    <button class="yes" onclick="showLove()">हो 💕</button>
+    <button class="no" onclick="sayNo()">नाही 😏</button>
+</div>
+
+<!-- Love Page -->
+<div id="lovePage">
+    <div class="container">
+
+        <img src="./photo.jpeg" class="photo">
+
+        <div class="content">
+            <h1>💞 तुझ्यासाठी काही खास शब्द 💞</h1>
+
+            <div class="text">पान अळवाचे तशी तू...</div>
+            <div class="text">थेंब पाण्याचा असा मी,</div>
+            <div class="text">भेट होते .. स्पर्श होतो .. पण बिलगता येत नाही,</div>
+            <div class="text">व्यक्त ओठांनाच व्हावे लागते प्रत्येकवेळी,</div>
+            <div class="text">काळजाच्या भरवश्यावर प्रेम करता येत नाही.</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+let music = document.getElementById("bgMusic");
+
+/* YES Click */
+function showLove(){
+    document.getElementById("proposal").style.display="none";
+    document.getElementById("lovePage").style.display="block";
+
+    music.volume = 0.6;
+    music.play().catch(()=>{});
+
+    animateText();
+    startHearts();
+}
+
+/* NO Click */
+function sayNo(){
+    alert("😜 नाही हा पर्याय चालणार नाही!");
+}
+
+/* Toggle Music */
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+    } else {
+        music.pause();
+    }
+}
+
+/* Text Animation */
+function animateText(){
+    let texts = document.querySelectorAll(".text");
+    texts.forEach((el,index)=>{
+        setTimeout(()=>{
+            el.classList.add("show");
+        }, index*800);
+    });
+}
+
+/* Floating Hearts */
+function startHearts(){
+    setInterval(()=>{
+        let heart = document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="💖";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.fontSize=(20+Math.random()*20)+"px";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+    },600);
+}
+
+</script>
+
+</body>
+</html>
